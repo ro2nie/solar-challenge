@@ -34,6 +34,5 @@ module.exports.responseBuilder = (status, message) => {
             message
         })
     }
-    console.log('RES', response)
     return response
 }

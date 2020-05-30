@@ -3,13 +3,13 @@ service: solar-challenge
 plugins:
   - serverless-offline
   - serverless-s3-local
-  # - serverless-webpack
+  - serverless-webpack
 
 provider:
   name: aws
   runtime: nodejs12.x
   stage: ${opt:stage, 'test'}
-  region: eu-west-1
+  region: eu-west-2
   deploymentBucket:
     name: ${self:custom.deploymentBucket.${self:provider.stage}}
 
@@ -47,9 +47,9 @@ custom:
       test: 'test'
       prod: 'prod'
   deploymentBucket: 
-    dev: serverless-deployments
-    test: serverless-deployments
-    prod: serverless-deployments
+    dev: ronnie-serverless-deployments
+    test: ronnie-serverless-deployments
+    prod: ronnie-serverless-deployments
 
 resources:
   Conditions:
@@ -58,7 +58,7 @@ resources:
         - ${opt:stage}
         - dev
   Resources:
-    eventBucket:
+    storeBucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.storeBucket.${self:provider.stage}}

@@ -1,17 +1,17 @@
 'use strict'
 
 const Validator = require('./Validator')
-let promises = [], valid = [], invalid = [], validationFailures
+let promises, valid, invalid, validationFailures
 
 module.exports = class DataProcessor {
 
     static async process(sensors) {
+        promises = [], valid = [], invalid = [], validationFailures = []
         for (let sensor of sensors) {
             promises.push(this._processSensorData(sensor))
         }
         const responses = await Promise.all(promises.map(p => p.catch(error => error)))
         responses.forEach((response) => {
-            console.log('RESPONSE', response)
             if (response) {
                 if (response.errors) {
                     invalid.push(response)
@@ -20,8 +20,6 @@ module.exports = class DataProcessor {
                 }
             }
         })
-        console.log('VALID', valid)
-        console.log('inVALID', invalid)
 
         const data = {}
         if (valid.length) {
@@ -36,7 +34,6 @@ module.exports = class DataProcessor {
     static _processSensorData(sensor) {
         return new Promise((resolve, reject) => {
             validationFailures = Validator.validate(sensor)
-            console.log('VALIDATION FAILURES', validationFailures)
             const sensorCopy = Object.assign({}, sensor)
             if (validationFailures.length) {
                 sensorCopy['errors'] = validationFailures

@@ -2,7 +2,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "jest --coverage",
-    "serve": "sls offline -s dev"
+    "serve": "sls offline -s dev",
+    "deploy:test": "sls deploy -v -s test"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -14,7 +15,6 @@
     "webpack": "^4.43.0"
   },
   "dependencies": {
-    "ajv": "^6.12.2",
-    "uuid": "^8.1.0"
+    "aws-sdk": "^2.686.0"
   }
 }

@@ -1,27 +1,26 @@
 'use strict'
 
-const { v4 } = require('uuid')
-const { s3Service } = require('./S3Service')
-const uuid = v4()
-const promises = []
+const { uuidV4 } = require('../utils/UUIDUtils')
+const { s3Service } = require('../store/S3Service')
+let promises, uuid
 
-module.exports = class SensorRequestService {
+module.exports = class SensorService {
 
     static store(sensorData) {
+        promises = []
+        uuid = uuidV4()
         if (sensorData.valid) {
             promises.push(this._putObject(sensorData.valid, 'valid'))
         }
         if (sensorData.invalid) {
             promises.push(this._putObject(sensorData.invalid, 'invalid'))
         }
-        Promise.all(promises).catch(err => {
-            console.log('ERR', err)
-            //log it to cloudwatch
-        })
+        return Promise.all(promises)
     }
 
     static _putObject(sensorData, type) {
-        s3Service.putObject(process.env.STORE_S3_BUCKET, this._constructPath(type), JSON.stringify(sensorData))
+        console.error('TODO-0 - UUID', uuid)
+        return s3Service.putObject(process.env.STORE_S3_BUCKET, this._constructPath(type), JSON.stringify(sensorData))
     }
 
     static _constructPath(type) {

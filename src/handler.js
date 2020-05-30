@@ -1,8 +1,8 @@
 'use strict'
 
-const { responseBuilder, HTTP_STATUS } = require('./HttpStatusCodes')
-const DataProcessor = require('./DataProcessor')
-const SensorRequestService = require('./service/SensorRequestService')
+const { responseBuilder, HTTP_STATUS } = require('./utils/HttpStatusCodes')
+const DataProcessor = require('./core/DataProcessor')
+const SensorService = require('./service/SensorService')
 let body
 
 module.exports.solar = async event => {
@@ -15,7 +15,7 @@ module.exports.solar = async event => {
         if (!body || !body.sensors || !body.sensors.length) {
             return responseBuilder(HTTP_STATUS.BAD_REQUEST, 'body did not contain sensor data')
         }
-        SensorRequestService.store(await DataProcessor.process(body.sensors))
+        await SensorService.store(await DataProcessor.process(body.sensors))
         return responseBuilder(HTTP_STATUS.ACCEPTED)
     } catch (err) {
         return responseBuilder(HTTP_STATUS.INTERNAL_SERVER_ERROR, err.message)
