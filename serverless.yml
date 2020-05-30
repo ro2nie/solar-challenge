@@ -2,12 +2,67 @@ service: solar-challenge
 
 plugins:
   - serverless-offline
+  - serverless-s3-local
   # - serverless-webpack
 
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: ${opt:stage, 'test'}
+  region: eu-west-1
+  deploymentBucket:
+    name: ${self:custom.deploymentBucket.${self:provider.stage}}
 
+  environment:
+    ENV: ${self:custom.env.${self:provider.stage}}
+    STORE_S3_BUCKET: ${self:custom.storeBucket.${self:provider.stage}}
+    VERSION: ${file(./package.json):version}
+    S3_HOST: ${self:custom.s3.host}
+    S3_PORT: ${self:custom.s3.port}
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+        - "s3:PutObject"
+        - "s3:ListBucket" 
+      Resource: "arn:aws:s3:::${self:custom.deploymentBucket.${self:provider.stage}}/*"
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+        - "s3:PutObject"
+        - "s3:ListBucket" 
+      Resource: "arn:aws:s3:::${self:custom.storeBucket.${self:provider.stage}}/*"
+
+custom:
+  s3:
+    host: 0.0.0.0
+    port: 8001
+  storeBucket:
+      dev: 'solar-store'
+      test: 'solar-store'
+      prod: 'solar-store'      
+  env:
+      dev: 'dev'
+      test: 'test'
+      prod: 'prod'
+  deploymentBucket: 
+    dev: serverless-deployments
+    test: serverless-deployments
+    prod: serverless-deployments
+
+resources:
+  Conditions:
+    IsDev:
+      Fn::Equals:
+        - ${opt:stage}
+        - dev
+  Resources:
+    eventBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.storeBucket.${self:provider.stage}}
+      Condition: IsDev 
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1

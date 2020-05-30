@@ -1,41 +1,34 @@
-'use strict';
+'use strict'
 
 const DataProcessor = require('./DataProcessor')
+const SensorRequestService = require('./service/SensorRequestService')
 const corsHeaders = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true }
-const dataProcessor = new DataProcessor()
+let body
 
 module.exports.solar = async event => {
     try {
-        let body
         try {
             body = JSON.parse(event.body)
         } catch (err) {
             return {
                 statusCode: 422, headers: corsHeaders, body: JSON.stringify({
                     statusCode: 422,
-                    error: "Unprocessable entity",
+                    error: "Unprocessable Entity",
                     message: err.message
                 })
             }
         }
-
-        let validationFailures
-        try {
-            validationFailures = await dataProcessor.process(body)
-        } catch (err) {
-            console.log('ERR', err)
-        }
-        console.log('VAL FAIL', validationFailures)
-
-        if (validationFailures.length) {
+        
+        if (!body || !body.sensors || !body.sensors.length) {
             return {
                 statusCode: 400, headers: corsHeaders, body: JSON.stringify({
                     statusCode: 400,
                     error: "Bad Request",
-                    message: validationFailures.join('\n')
+                    message: 'body did not contain sensor data'
                 })
             }
         }
+        SensorRequestService.store(await DataProcessor.process(body.sensors))
         return {
             statusCode: 200,
             body: JSON.stringify(body)

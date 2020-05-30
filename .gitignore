@@ -9,3 +9,6 @@ coverage
 
 # MacOS
 .DS_Store
+
+# S3 local
+buckets
