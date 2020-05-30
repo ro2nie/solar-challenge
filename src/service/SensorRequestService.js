@@ -3,11 +3,17 @@
 const { v4 } = require('uuid')
 const s3Service = require('./S3Service').s3Service
 const uuid = v4()
+const promises = []
 
 module.exports = class SensorRequestService {
 
     static store(sensorData) {
-        const promises = [this._putObject(sensorData.valid, 'valid'), this._putObject(sensorData.invalid, 'invalid')]
+        if (sensorData.valid) {
+            promises.push(this._putObject(sensorData.valid, 'valid'))
+        }
+        if (sensorData.invalid) {
+            promises.push(this._putObject(sensorData.invalid, 'invalid'))
+        }
         Promise.all(promises).catch(err => {
             console.log('ERR', err)
             //log it to cloudwatch

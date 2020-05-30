@@ -20,17 +20,18 @@ module.exports = class Validator {
         const validationFailures = []
         for (let [field, value] of Object.entries(sensor)) {
             const validationData = validationRules[field]
-            if (validationRules) {
+            if (validationData) {
+                console.log('validationData', validationData)
                 if (validationData.type === 'string') {
                     if (typeof value !== validationData.type) {
-                        validationFailures.push(`Value ${value} for field ${field} should be a string. Not a ${typeof value}.`)
+                        validationFailures.push(`Value ${value} for field ${field} should be of type string. Not ${typeof value}.`)
                     }
                     if (validationData.regex && !validationData.regex.test(value)) {
                         validationFailures.push(`Value ${value} for field ${field} did not match regex ${validationData.regex}.`)
                     }
                 } else if (validationData.type === 'int') {
                     if (!this._isInt(value)) {
-                        validationFailures.push(`Value ${value} for field ${field} should be an integer. Not an ${typeof value}.`)
+                        validationFailures.push(`Value ${value} for field ${field} should be of type integer. Not ${typeof value}.`)
                     }
                     if (validationData.range && (value < validationData.range.min || value > validationData.range.max)) {
                         validationFailures.push(`Value ${value} for field ${field} is not inside the allowed range of ${JSON.stringify(validationData.range)}.`)
@@ -40,7 +41,7 @@ module.exports = class Validator {
                     validationFailures.push(`Value ${value} was not in the list of possible values [${validationData.possibleValues}].`)
                 }
             } else {
-                validationFailures.push(`Field ${field} is not allowed. Found at .sensors[${idx}].${field}`)
+                validationFailures.push(`Field ${field} is not allowed.`)
             }
         }
         return validationFailures

@@ -22,7 +22,15 @@ module.exports = class DataProcessor {
         })
         console.log('VALID', valid)
         console.log('inVALID', invalid)
-        return { valid, invalid }
+
+        const data = {}
+        if (valid.length) {
+            data['valid'] = valid
+        }
+        if (invalid.length) {
+            data['invalid'] = invalid
+        }
+        return data
     }
 
     static _processSensorData(sensor) {
