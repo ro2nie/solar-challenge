@@ -54,8 +54,9 @@ module.exports = class DataProcessor {
             console.log('FIELD', field)
             console.log('VALUE', value)
             console.log('validationRules.field', validationRules[field])
-            if (validationRules[field]) {
-                const validationData = validationRules[field]
+
+            const validationData = validationRules[field]
+            if (validationRules) {
                 if (validationData.type === 'string' && typeof value !== validationData.type) {
                     validationFailures.push(`Value ${value} should be a string. Not a(n) ${typeof value}. Found at .sensors[${idx}].${field}`)
                 }
