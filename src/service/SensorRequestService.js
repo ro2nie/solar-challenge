@@ -1,7 +1,7 @@
 'use strict'
 
 const { v4 } = require('uuid')
-const s3Service = require('./S3Service').s3Service
+const { s3Service } = require('./S3Service')
 const uuid = v4()
 const promises = []
 
