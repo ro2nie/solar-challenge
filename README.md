@@ -2,14 +2,13 @@
   
 ## Introducton
 
-This project uses the serverless, webpack and node.js frameworks to validate and store sensor data into AWS S3.
+This project uses the serverless, webpack and node.js frameworks to validate sensor data, to calculate its current and to store the resulting data into AWS S3.
 A sensor/sensors payload can be sent to the `solar-challenge/` which is then validated against a set of criteria in [Validator.js](./src/core/Validator.js) named validationRules.
 
 Depending on the validation outcome, the cloud function will proceed to store any valid and invalid sensor data under an s3 bucket called `solar-store` and under the path `<environment>/<valid or invalid>/<current year>/<current month>/<current day>/<current hour>/<unique identifier>.json`.
 
-With the serverless-offline and serverless-s3-local plugins, this application can run locally by running `yarn serve`. When first running it, the serverless-s3-local plugin will create a new bucket called `solar-store` under the `buckets` directory.
-
-All available endpoints are written to the console when you issue `yarn serve`.
+If a sensor has passed validation, its current will be calculated and added to it before being stored in s3 under the `valid` directory.
+If however a sensor has not passed validation, its errors will be recorded (for later analysis) and added to it to then be stored under the `invalid` directory.
 
 ### Webpack
 
@@ -31,6 +30,8 @@ Packages can be installed globally using the following command:
 Once the above node.js packages have been installed globally, you need to install all project dependencies by executing the `yarn` command.
 
 ## Running in Development mode.
+
+With the `serverless-offline` and `serverless-s3-local` plugins, this application can run locally. When first running it, the serverless-s3-local plugin will create a new bucket called `solar-store` under the `buckets` directory.
 
 The project runs using a local serverless installation which provides local AWS services such as S3. The configuration for this is found in the `serverless.yml` file.
 
