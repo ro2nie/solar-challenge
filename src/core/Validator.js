@@ -21,7 +21,6 @@ module.exports = class Validator {
         for (let [field, value] of Object.entries(sensor)) {
             const validationData = validationRules[field]
             if (validationData) {
-                console.log('validationData', validationData)
                 if (validationData.type === 'string') {
                     if (typeof value !== validationData.type) {
                         validationFailures.push(`Value ${value} for field ${field} should be of type string. Not ${typeof value}.`)
@@ -38,7 +37,7 @@ module.exports = class Validator {
                     }
                 }
                 if (validationData.possibleValues && !validationData.possibleValues.includes(value)) {
-                    validationFailures.push(`Value ${value} was not in the list of possible values [${validationData.possibleValues}].`)
+                    validationFailures.push(`Value ${value} for field ${field} was not in the list of possible values [${validationData.possibleValues}].`)
                 }
             } else {
                 validationFailures.push(`Field ${field} is not allowed.`)

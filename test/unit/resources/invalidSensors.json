@@ -12,7 +12,7 @@
             "baseline": 4000,
             "voltage": 5300,
             "range": 300,
-            "notAllowedKey": "not-allowed"
+            "randomKey": "not-allowed"
         },
         {
             "name": "battery",
@@ -25,16 +25,16 @@
         {
             "name": 1,
             "direction": 2,
-            "offset": 0,
+            "offset": 0.1,
             "baseline": -1,
             "voltage": 5300,
             "range": 0
         },
         {
-            "name": "battery",
+            "name": "areallylooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongname",
             "direction": "1",
             "offset": "0",
-            "baseline": "-1",
+            "baseline": "1",
             "voltage": "5300",
             "range": "0"
         }

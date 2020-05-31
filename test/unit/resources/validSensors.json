@@ -20,7 +20,15 @@
             "name": "battery",
             "direction": 1,
             "offset": 0,
-            "baseline": 5000,
+            "baseline": 10000,
+            "voltage": 5300,
+            "range": 300
+        },
+        {
+            "name": "battery",
+            "direction": 1,
+            "offset": 0,
+            "baseline": 0,
             "voltage": 5300,
             "range": 300
         }
