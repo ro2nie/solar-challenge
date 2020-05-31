@@ -84,10 +84,12 @@ The function can be built via the `yarn build` command. Executing the `build` co
 ### Test (the staging environment)
 You can deploy to the `test` environment by issuing the command `yarn deploy:test`. This in turn will issue the `serverless deploy` command, with the `test` stage flag.
 This stage flag is then used to use the real (non mocked) AWS S3 instance, and to store validated payloads into S3, under the path that containing the `test` environment.
+Currently accessible via [https://go2uqtm736.execute-api.eu-west-2.amazonaws.com/test/solar-challenge](https://go2uqtm736.execute-api.eu-west-2.amazonaws.com/test/solar-challenge)
 
 ### Production
 As with deploying to test, you can also deploy to the `prod` environment by issuing the command `yarn deploy:prod`. This in turn will issue the `serverless deploy` command, with the `prod` stage flag.
 Again this stage flag is used to use the real (non mocked) AWS S3 instance, and to store validated payloads into S3, under the path containing `prod` environment.
+Currently accessible via [https://o4e2m5akt9.execute-api.eu-west-2.amazonaws.com/prod/solar-challenge](https://o4e2m5akt9.execute-api.eu-west-2.amazonaws.com/prod/solar-challenge)
 
 NOTE:
 Normally, deployment scripts like these would not be available via the package.json scripts. Usually deployment steps would be defined in CI/CD pipelines included in the repository.
