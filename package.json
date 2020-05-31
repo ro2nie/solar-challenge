@@ -4,6 +4,7 @@
     "test": "jest --coverage",
     "serve": "sls offline -s dev",
     "integration": "./bin/run_integration.sh",
+    "testAll": "jest --coverage && ./bin/run_integration.sh",
     "cucumber": "./node_modules/.bin/cucumber-js --format json:cucumber.json test/integration/features",
     "deploy:test": "sls deploy -v -s test",
     "deploy:prod": "sls deploy -v -s test",
@@ -24,5 +25,6 @@
   },
   "dependencies": {
     "aws-sdk": "^2.686.0"
-  }
+  },
+  "license": "MIT"
 }
