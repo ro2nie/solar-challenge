@@ -1,6 +1,6 @@
 'use strict'
 
-const { uuidV4 } = require('../utils/UUIDUtils')
+const { uuidV4 } = require('../utils/UUIDGenerator')
 const { s3Service } = require('../store/S3Service')
 let promises, uuid
 

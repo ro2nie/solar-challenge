@@ -4,11 +4,29 @@ describe('S3Service', () => {
 
     describe('Test the putObject functon', () => {
 
-        it('Test putObject with success response', async (done) => {
+        it('Test putObject with success response with key not starting with a slash', async (done) => {
             const expectedResponse = 'SUCCESS'
+            const startsWithMock = jest.fn().mockImplementation(() => false);
+            const substringMock = jest.fn()
+            const mockedKey = { startsWith: startsWithMock, substring: substringMock, }
             const s3Service = new S3Service(createS3Mock(expectedResponse))
-            const response = await s3Service.putObject('testBucket', 'someKey', 'some content')
+            const response = await s3Service.putObject('testBucket', mockedKey, 'some content')
             expect(response).toStrictEqual(expectedResponse)
+            expect(startsWithMock).toHaveBeenCalledWith('/')
+            expect(substringMock).not.toHaveBeenCalled()
+            done()
+        })
+
+        it('Test putObject with success response with key starting with a slash', async (done) => {
+            const expectedResponse = 'SUCCESS'
+            const startsWithMock = jest.fn().mockImplementation(() => true);
+            const substringMock = jest.fn().mockImplementation(() => true);
+            const mockedKey = { startsWith: startsWithMock, substring: substringMock, }
+            const s3Service = new S3Service(createS3Mock(expectedResponse))
+            const response = await s3Service.putObject('testBucket', mockedKey, 'some content')
+            expect(response).toStrictEqual(expectedResponse)
+            expect(startsWithMock).toHaveBeenCalledWith('/')
+            expect(substringMock).toHaveBeenCalledWith(1)
             done()
         })
 
