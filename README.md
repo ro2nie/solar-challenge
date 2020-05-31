@@ -75,6 +75,10 @@ Testing is provided using the jest unit test dependency. Tests are located in th
 Integration test support is provided by cucumber and apickli. The cucumber dependency provides the Cucumber and Gherkin support; apickli provides a rest testing framework.
 To run the full acceptance test issue the command `yarn integration`. This runs the serverless-offline stack, then waits for it to become available (with the wait-on dependency), and then it executes the features against this local instance. Once the test run is complete the serverless-offline instance is torn down. This is all controlled by the [bin/run_integration.sh](bin/run_integration.sh) script.
 
+### Running both unit and integration tests
+
+You may use the `yarn testAll` command in order to run all unit and integration tests.
+
 ## Building
 
 The function can be built via the `yarn build` command. Executing the `build` command will run webpack, bundling the code into a separate zip artifact file located in the `.serverless` directory.
