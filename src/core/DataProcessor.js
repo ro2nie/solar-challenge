@@ -1,5 +1,4 @@
 'use strict'
-
 const Validator = require('./Validator')
 let promises, valid, invalid, validationFailures
 

@@ -12,14 +12,14 @@ class S3 {
     }
 }
 
-const mockAws  = {
+const mockAws = {
     S3: S3,
     Endpoint: Endpoint
 }
 
-describe('Test the S3Factory', () => {
+describe('S3Factory', () => {
 
-    it ('Test dev mode', () => {
+    it('Test dev mode', () => {
         process.env.ENV = 'dev'
         process.env.S3_HOST = 'some/host'
         process.env.S3_PORT = '8000'

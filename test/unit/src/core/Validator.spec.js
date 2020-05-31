@@ -1,7 +1,7 @@
 'use strict'
 const Validator = require('../../../../src/core/Validator')
-const validSensorsData = require('../../resources/validSensors.json')
-const invalidSensorsData = require('../../resources/invalidSensors.json')
+const validSensorsData = require('../../../resources/validSensors.json')
+const invalidSensorsData = require('../../../resources/invalidSensors.json')
 
 describe('Validator', () => {
 

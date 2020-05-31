@@ -4,6 +4,7 @@ node_modules
 
 # Tests
 coverage
+cucumber.json
 
 # MacOS
 .DS_Store

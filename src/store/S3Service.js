@@ -8,7 +8,7 @@ class S3Service {
     }
 
     putObject(bucketName, key, body) {
-        return this.s3.putObject({ Bucket: bucketName, Key: key.startsWith('/') ? key.substring(1) : key, ContentType: 'application/json; charset=utf-8', Body: body }).promise().catch(error => console.error(`Error thrown when calling putObject for ${bucketName}:${key}`, error))
+        return this.s3.putObject({ Bucket: bucketName, Key: key.startsWith('/') ? key.substring(1) : key, ContentType: 'application/json; charset=utf-8', Body: body }).promise().catch(error => console.log(`Error thrown when calling putObject for ${bucketName}:${key}`, error))
     }
 }
 module.exports = {

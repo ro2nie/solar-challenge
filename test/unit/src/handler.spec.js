@@ -10,7 +10,7 @@ describe('Handler', () => {
     beforeEach(() => {
         jest.resetModules()
         jest.restoreAllMocks()
-        validSensorsPayload = require('../resources/validSensors.json')
+        validSensorsPayload = require('../../resources/validSensors.json')
     })
 
     it('Fails with a 422 unprocessable entity response on invalid JSON', async () => {
@@ -77,7 +77,7 @@ describe('Handler', () => {
     })
 
     it('Fails with a 500 internal server error response', async () => {
-        jest.spyOn(DataProcessor, 'process').mockImplementation(() => { throw Error('an internal error occurred')})
+        jest.spyOn(DataProcessor, 'process').mockImplementation(() => { throw Error('an internal error occurred') })
         const event = { body: JSON.stringify(validSensorsPayload) }
         const actual = await solar(event)
         const expected = {
