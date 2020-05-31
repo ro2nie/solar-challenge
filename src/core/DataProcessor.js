@@ -45,8 +45,6 @@ module.exports = class DataProcessor {
         })
     }
 
-    static _isInt(data) { return (data === parseInt(data, 10)) }
-
     static _calculateCurrent(sensor) {
         return (sensor.voltage + sensor.offset - sensor.baseline) * (sensor.range / sensor.baseline) * sensor.direction
     }

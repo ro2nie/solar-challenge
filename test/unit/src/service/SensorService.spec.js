@@ -6,13 +6,13 @@ const env = 'dev'
 const bucketName = 'the-bucket-name'
 const validPathRegex = /^dev\/valid\/\d{4}\/\d{2}\/\d{2}\/\d{2}\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}.json$/
 const invalidPathRegex = /^dev\/invalid\/\d{4}\/\d{2}\/\d{2}\/\d{2}\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}.json$/
-process.env.ENV = env
-process.env.STORE_S3_BUCKET = bucketName
 
 describe('SensorService', () => {
 
     beforeEach(() => {
         jest.restoreAllMocks()
+        process.env.ENV = env
+        process.env.STORE_S3_BUCKET = bucketName
     })
 
     afterEach(() => {
@@ -44,7 +44,7 @@ describe('SensorService', () => {
         expect(bodyArgInvalid).toStrictEqual(JSON.stringify(sensorData.valid))
     })
 
-    it('Stores valid data only', async () => {        
+    it('Stores valid data only', async () => {
         const putObjectSpy = jest.spyOn(s3Service, 'putObject').mockImplementation(() => Promise.resolve())
         const sensorData = { valid: { foo: 'bar' } }
         await SensorService.store(sensorData)
