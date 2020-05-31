@@ -19,7 +19,6 @@ module.exports = class SensorService {
     }
 
     static _putObject(sensorData, type) {
-        console.error('TODO-0 - UUID', uuid)
         return s3Service.putObject(process.env.STORE_S3_BUCKET, this._constructPath(type), JSON.stringify(sensorData))
     }
 

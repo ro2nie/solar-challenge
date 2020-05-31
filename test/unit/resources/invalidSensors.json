@@ -1,0 +1,42 @@
+{
+    "sensors": [
+        {
+            "direction": 1,
+            "baseline": 5000,
+            "range": 400
+        },
+        {
+            "name": "battery",
+            "direction": 1,
+            "offset": 0,
+            "baseline": 4000,
+            "voltage": 5300,
+            "range": 300,
+            "notAllowedKey": "not-allowed"
+        },
+        {
+            "name": "battery",
+            "direction": 2,
+            "offset": 0,
+            "baseline": 10001,
+            "voltage": 5300,
+            "range": 300
+        },
+        {
+            "name": 1,
+            "direction": 2,
+            "offset": 0,
+            "baseline": -1,
+            "voltage": 5300,
+            "range": 0
+        },
+        {
+            "name": "battery",
+            "direction": "1",
+            "offset": "0",
+            "baseline": "-1",
+            "voltage": "5300",
+            "range": "0"
+        }
+    ]
+}
