@@ -1,0 +1,28 @@
+{
+    "sensors": [
+        {
+            "name": "battery",
+            "direction": 1,
+            "offset": 0,
+            "baseline": 5000,
+            "voltage": 5300,
+            "range": 400
+        },
+        {
+            "name": "battery",
+            "direction": 1,
+            "offset": 0,
+            "baseline": 4000,
+            "voltage": 5300,
+            "range": 300
+        },
+        {
+            "name": "battery",
+            "direction": 1,
+            "offset": 0,
+            "baseline": 5000,
+            "voltage": 5300,
+            "range": 300
+        }
+    ]
+}

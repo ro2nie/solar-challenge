@@ -6,6 +6,7 @@ const SensorService = require('./service/SensorService')
 let body
 
 module.exports.solar = async event => {
+
     try {
         try {
             body = JSON.parse(event.body)
